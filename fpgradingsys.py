@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jan 17 01:49:36 2024
-
-@author: Onu´s gadget
-"""
-
 import csv
 
 # Function to display student information
@@ -44,8 +37,22 @@ students_data = read_csv_data(csv_file_path)
 # Assuming the subjects are in the order: Math, Science, History
 subjects = ["Math", "Science", "History"]
 
-# Take student number as input from the user
-student_id_input = int(input("Enter student ID: "))
+# Function to get a valid student ID input from the user
+def get_valid_student_id():
+    while True:
+        try:
+            student_id_input = int(input("Enter student ID (between 1000 and 1004): "))
+            if 1000 <= student_id_input <= 1004:
+                return student_id_input
+            else:
+                print("Forgot your student ID? Here's the ID list: 1000/1001/1002/1003/1004")
+        except ValueError:
+            print("Forgot your student ID? Here's the ID list: 1000/1001/1002/1003/1004")
+
+# Get a valid student ID from the user
+student_id_input = get_valid_student_id()
 
 # Display the information for the input student number
 print(display_student_info(student_id_input, students_data))
+
+input("Press any key to exit")
