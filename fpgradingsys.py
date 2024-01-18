@@ -31,7 +31,7 @@ def read_csv_data(filepath):
     return students_data
 
 # Path to the CSV file
-csv_file_path = r'C:\Users\Onu´s gadget\Desktop\fpgradingsystem\students_grades.csv'
+csv_file_path = r'students_grades.csv'
 students_data = read_csv_data(csv_file_path)
 
 # Assuming the subjects are in the order: Math, Science, History
