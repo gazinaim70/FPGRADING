@@ -27,18 +27,17 @@ def read_csv_data(filepath):
             students_data[student_id] = Student(student_id, name, grades)
     return students_data
 
-<<<<<<< Updated upstream
 # Path to the CSV file
 csv_file_path = r'students_grades.csv'
 students_data = read_csv_data(csv_file_path)
-=======
+
 def display_student_info(student_id, students_data):
     student = students_data.get(student_id)
     if student:
         return student.display_info()
     else:
         return "Student ID not found."
->>>>>>> Stashed changes
+
 
 def get_valid_student_id():
     while True:
@@ -50,8 +49,7 @@ def get_valid_student_id():
                 print("Invalid range. Please enter a student ID between 1000 and 1004.")
         except ValueError:
             print("Invalid input. Please enter a number.")
-<<<<<<< Updated upstream
-=======
+
 
 # Path to the CSV file
 csv_file_path = r'students_grades.csv'
@@ -59,7 +57,6 @@ students_data = read_csv_data(csv_file_path)
 
 # Assuming the subjects are in the order: Math, Science, History
 subjects = ["Math", "Science", "History"]
->>>>>>> Stashed changes
 
 # Get a valid student ID from the user
 student_id_input = get_valid_student_id()
@@ -72,8 +69,4 @@ while True:
     user_input = input("Type 'exit' to finish: ")
     if user_input.lower() == 'exit':
         break
-<<<<<<< Updated upstream
 
-            
-=======
->>>>>>> Stashed changes
