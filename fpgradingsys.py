@@ -1,43 +1,45 @@
 import csv
 
-# Function to display student information
-def display_student_info(student_id, students_data):
-    student_info = students_data.get(student_id)
-    if student_info:
-        name, *grades = student_info
-        output = f"Name: {name}\n"
-        output += "Subjects Grade:\n"
-        # Assuming 'subjects' is a list of subject names
-        for subject, grade in zip(subjects, grades):
+class Student:
+    def __init__(self, student_id, name, grades):
+        self.student_id = student_id
+        self.name = name
+        self.grades = grades
+
+    def display_info(self):
+        output = f"Name: {self.name}\nSubjects Grade:\n"
+        for subject, grade in zip(subjects, self.grades):
             output += f"{subject}: {grade}\n"
-        # Check for any grade less than 65
-        if any(int(grade) < 65 for grade in grades):
+        if any(int(grade) < 65 for grade in self.grades):
             output += "Final Result: FAIL"
         else:
             output += "Final Result: PASS"
         return output
-    else:
-        return "Student ID not found."
 
-# Function to read CSV data into a dictionary
 def read_csv_data(filepath):
     students_data = {}
     with open(filepath, newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             student_id = int(row['Student ID'])
-            # Assuming grades are stored as integers in the CSV
-            students_data[student_id] = [row['Name'], row['Math'], row['Science'], row['History']]
+            name = row['Name']
+            grades = [row['Math'], row['Science'], row['History']]
+            students_data[student_id] = Student(student_id, name, grades)
     return students_data
 
+<<<<<<< Updated upstream
 # Path to the CSV file
 csv_file_path = r'students_grades.csv'
 students_data = read_csv_data(csv_file_path)
+=======
+def display_student_info(student_id, students_data):
+    student = students_data.get(student_id)
+    if student:
+        return student.display_info()
+    else:
+        return "Student ID not found."
+>>>>>>> Stashed changes
 
-# Assuming the subjects are in the order: Math, Science, History
-subjects = ["Math", "Science", "History"]
-
-# Function to get a valid student ID input from the user
 def get_valid_student_id():
     while True:
         try:
@@ -45,9 +47,19 @@ def get_valid_student_id():
             if 1000 <= student_id_input <= 1004:
                 return student_id_input
             else:
-                print("Forgot your student ID? Here's the ID list: 1000/1001/1002/1003/1004")
+                print("Invalid range. Please enter a student ID between 1000 and 1004.")
         except ValueError:
             print("Invalid input. Please enter a number.")
+<<<<<<< Updated upstream
+=======
+
+# Path to the CSV file
+csv_file_path = r'students_grades.csv'
+students_data = read_csv_data(csv_file_path)
+
+# Assuming the subjects are in the order: Math, Science, History
+subjects = ["Math", "Science", "History"]
+>>>>>>> Stashed changes
 
 # Get a valid student ID from the user
 student_id_input = get_valid_student_id()
@@ -60,5 +72,8 @@ while True:
     user_input = input("Type 'exit' to finish: ")
     if user_input.lower() == 'exit':
         break
+<<<<<<< Updated upstream
 
             
+=======
+>>>>>>> Stashed changes
