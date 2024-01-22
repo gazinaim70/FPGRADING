@@ -47,7 +47,7 @@ def get_valid_student_id():
             else:
                 print("Forgot your student ID? Here's the ID list: 1000/1001/1002/1003/1004")
         except ValueError:
-            print("Forgot your student ID? Here's the ID list: 1000/1001/1002/1003/1004")
+            print("Invalid input. Please enter a number.")
 
 # Get a valid student ID from the user
 student_id_input = get_valid_student_id()
@@ -55,4 +55,10 @@ student_id_input = get_valid_student_id()
 # Display the information for the input student number
 print(display_student_info(student_id_input, students_data))
 
-input("Press any key to exit")
+# Wait for user input to exit the program
+while True:
+    user_input = input("Type 'exit' to finish: ")
+    if user_input.lower() == 'exit':
+        break
+
+            
