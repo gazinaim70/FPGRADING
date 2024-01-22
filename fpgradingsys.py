@@ -1,6 +1,5 @@
 import csv
 
-# Class definition
 class Student:
     def __init__(self, student_id, name, grades):
         self.student_id = student_id
@@ -18,7 +17,6 @@ class Student:
             output += "Final Result: PASS"
         return output
 
-# Function definitions
 def read_csv_data(filepath):
     students_data = {}
     with open(filepath, newline='') as csvfile:
@@ -47,38 +45,59 @@ def get_letter_grade(numeric_grade, grade_margins):
             return grade
     return 'Unknown Grade'
 
+def calculate_progress(grades_sem1, grades_sem2):
+    progress = {}
+    for subject in grades_sem1.keys():
+        grade1, grade2 = int(grades_sem1[subject]), int(grades_sem2[subject])
+        change = grade2 - grade1
+        percent_change = (change / grade1) * 100 if grade1 != 0 else float('inf')
+        progress[subject] = percent_change
+    return progress
+
 def get_valid_student_id():
     while True:
         try:
-            student_id_input = int(input("Enter student ID (between 1000 and 1004): "))
+            student_id_input = int(input("Enter student ID: "))
             if 1000 <= student_id_input <= 1004:
                 return student_id_input
             else:
-                print("Invalid range. Please enter a student ID between 1000 and 1004.")
+                print("Forgot your student ID? It should be 1000/1001/1002/1003/1004")
         except ValueError:
             print("Invalid input. Please enter a number.")
 
-# Main execution
 if __name__ == "__main__":
-    # Path to the CSV files
-    csv_file_path = 'students_grades.csv'
+    csv_file_path_sem1 = 'students_grades.csv'
+    csv_file_path_sem2 = 'student_grades_sem2.csv'
     grade_margins_file_path = 'grade_margins.csv'
     
-    # Read data from CSV files
-    students_data = read_csv_data(csv_file_path)
+    students_data_sem1 = read_csv_data(csv_file_path_sem1)
+    students_data_sem2 = read_csv_data(csv_file_path_sem2)
     grade_margins = read_grade_margins(grade_margins_file_path)
 
-    # Assuming the subjects are in the order: Math, Science, History
     subjects = ["Math", "Science", "History"]
-
-    # Get a valid student ID from the user
     student_id_input = get_valid_student_id()
 
-    # Display the information for the input student number
-    print(students_data[student_id_input].display_info(grade_margins))
+    student_sem1 = students_data_sem1.get(student_id_input)
+    student_sem2 = students_data_sem2.get(student_id_input)
 
-    # Wait for user input to exit the program
+    if student_sem1 and student_sem2:
+        print("Semester 1 Grades:")
+        print(student_sem1.display_info(grade_margins))
+
+        print("\nSemester 2 Grades:")
+        print(student_sem2.display_info(grade_margins))
+
+        print("\nProgress from Semester 1 to Semester 2:")
+        progress = calculate_progress(dict(zip(subjects, student_sem1.grades)), 
+                                      dict(zip(subjects, student_sem2.grades)))
+        for subject, percent_change in progress.items():
+            print(f"{subject} Progress: {percent_change:+.2f}%")
+    else:
+        print("Student data not found for the given ID.")
+
     while True:
         user_input = input("Type 'exit' to finish: ")
         if user_input.lower() == 'exit':
             break
+
+
